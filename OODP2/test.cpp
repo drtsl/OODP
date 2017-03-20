@@ -10,7 +10,7 @@ int main(){
     while(1){
         int input;
         cout << "----------"<<endl << "1.save" << endl << "2.load" << endl << "3.add" << endl
-        << "4.print" << endl << "5.quit" << endl << "----------" << endl;
+        << "4.adressbook" << endl << "5.quit" << endl << "----------" << endl;
         cin >> input;
         switch(input){
         case 1:
@@ -21,7 +21,7 @@ int main(){
             break;
         case 3:
             {
-                cout << "1.(name) 2.(phone#) 3.(email)" << endl;
+                cout << "(name) (phone#) (email)" << endl;
 				string name, phoneNumber, email;
 				name = phoneNumber = email = ' ';
                 cin >> name >> phoneNumber >> email;
@@ -29,7 +29,7 @@ int main(){
             }
             break;
         case 4:
-            adbm.printAddress();
+            adbm.Addresscontroller();
         case 5:
             break;
         default:
