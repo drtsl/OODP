@@ -12,7 +12,8 @@ public:
     Address(){};
     Address(string name_, string phoneNumber_, string email_, string address_, string memo_, string alias_)
     : name(name_), phoneNumber(phoneNumber_), email(email_), address(address_), memo(memo_), alias(alias_) {}
-	Address(string name_, string phoneNumber_, string email_)  : name(name_), phoneNumber(phoneNumber_), email(email_){}
+	Address(string name_, string phoneNumber_, string email_)
+    : name(name_), phoneNumber(phoneNumber_), email(email_), address("None"), memo("None"), alias("None"){}
     string getName(){return name;}
     void setName(string name_){name = name_;}
     string getPhoneNumber(){return phoneNumber;}
@@ -25,6 +26,8 @@ public:
     void setMemo(string memo_){memo = memo_;}
     string getAlias(){return alias;}
     void setAlias(string alias_){alias = alias_;}
+
+	void makeAddress();
 
 private:
     string name;

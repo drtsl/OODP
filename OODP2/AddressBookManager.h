@@ -11,16 +11,19 @@ class AddressBookManager{
 public:
     void saveAddress();
     void loadAddress();
-    void Addresscontroller();
-	void printAddress(int range);
+    void addressManagement();
+	void printAddress(int type);
     void addAddress(string name, string phoneNumber, string email, string address, string memo, string alias);
-	void addbasicAddress(string name, string phoneNumber, string email);
-	void displayperson(string name_);
-	void editprofile(vector<Address>::iterator it, int category_, string input_);
+	//void addBasicAddress(string name, string phoneNumber, string email);
+	void printoneAddress(string name_);
+	void editAddress(vector<Address>::iterator it, int category_, string input_);
     void deleteAddress(vector<Address>::iterator it);
-
-
+    void showAddress();
+    void sortAddress();
+	void makeAddress();
+    
 private:
+
     vector<Address> addressV;
 };
 

@@ -9,8 +9,14 @@ int main(){
 
     while(1){
         int input;
-        cout << "----------"<<endl << "1.save" << endl << "2.load" << endl << "3.add" << endl
-        << "4.adressbook" << endl << "5.quit" << endl << "----------" << endl;
+        cout << "----------"<<endl
+        << "1. Save" << endl
+        << "2. Load" << endl
+        << "3. View Addresses" << endl
+        << "4. Add" << endl
+        << "5. Adressbook" << endl
+        << "6. Quit" << endl
+        << "----------" << endl;
         cin >> input;
         switch(input){
         case 1:
@@ -20,22 +26,20 @@ int main(){
             adbm.loadAddress();
             break;
         case 3:
-            {
-                cout << "(name) (phone#) (email)" << endl;
-				string name, phoneNumber, email;
-				name = phoneNumber = email = ' ';
-                cin >> name >> phoneNumber >> email;
-                adbm.addbasicAddress(name, phoneNumber, email);
-            }
+            adbm.printAddress(3);
             break;
         case 4:
-            adbm.Addresscontroller();
+			adbm.makeAddress();
+            break;
         case 5:
+            adbm.addressManagement();
+            break;
+        case 6:
             break;
         default:
             cout << "default" << endl;
         }
-        if(input == 5)
+        if(input == 6)
             break;
     }
 
