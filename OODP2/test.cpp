@@ -12,10 +12,9 @@ int main(){
         cout << "----------"<<endl
         << "1. Save" << endl
         << "2. Load" << endl
-        << "3. View Addresses" << endl
-        << "4. Add" << endl
-        << "5. Adressbook" << endl
-        << "6. Quit" << endl
+        << "3. Add" << endl
+        << "4. Adressbook" << endl
+        << "5. Quit" << endl
         << "----------" << endl;
         cin >> input;
         switch(input){
@@ -26,20 +25,17 @@ int main(){
             adbm.loadAddress();
             break;
         case 3:
-            adbm.printAddress(3);
-            break;
-        case 4:
 			adbm.makeAddress();
             break;
-        case 5:
+        case 4:
             adbm.addressManagement();
             break;
-        case 6:
+        case 5:
             break;
         default:
             cout << "default" << endl;
         }
-        if(input == 6)
+        if(input == 5)
             break;
     }
 

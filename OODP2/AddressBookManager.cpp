@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
+//template <typename T>;
 string templist[6] = { "name", "phone number", "email", "address", "memo", "alias" };
 
 void AddressBookManager::saveAddress() {
@@ -56,11 +56,7 @@ void AddressBookManager::addAddress(string name, string phoneNumber, string emai
     //cin >> name >> phoneNumber >> email >> address >> memo >> alias;
     addressV.push_back(Address(name, phoneNumber, email, address, memo, alias));
 }
-/*
-void AddressBookManager::addBasicAddress(string name, string phoneNumber, string email) {
-	addressV.push_back(Address(name, phoneNumber, email));
-}
-*/
+
 void AddressBookManager::printAddress(int type) {
     // type 1 : print only names
     // type 2 : print names for editing
@@ -92,19 +88,6 @@ void AddressBookManager::printAddress(int type) {
 		cout << "Type \"edit\" to edit profile" << endl;
 		cout << "Type \"delete\" to delete" << endl;
 		cout << "@@@@@@@@@@@@@@@@@@@@@@@@@" << endl << endl;
-		break;
-    case 3:
-        for (auto i = addressV.begin(); i != addressV.end(); i++) {
-			cout << endl << endl;
-			cout << "####################" << endl;
-			cout << "Name : " << "\t" << "\t" << i->getName() << endl;
-			cout << "PhoneNumber : " << "\t" << i->getPhoneNumber() << endl;
-			cout << "Email : " << "\t" << i->getEmail() << endl;
-			cout << "Address : " << "\t" << i->getAddress() << endl;
-			cout << "Alias : " << "\t" << i->getAlias() << endl;
-			cout << "Memo : " << "\t\t" << i->getMemo() << endl;
-			cout << "####################" << endl << endl;
-    	}
         break;
     default:
         cout << "print default?" << endl;
@@ -172,7 +155,6 @@ void AddressBookManager::addressManagement(){
 void AddressBookManager::printoneAddress(string name_) {
 	for (auto i = addressV.begin(); i != addressV.end(); i++) {
 		if (name_ == i->getName()) {
-			cout << endl << endl;
 			cout << "####################" << endl;
 			cout << "Name : " << "\t" << "\t" << i->getName() << endl;
 			cout << "PhoneNumber : " << "\t" << i->getPhoneNumber() << endl;
@@ -225,21 +207,64 @@ void AddressBookManager::sortAddress(){
 void AddressBookManager::makeAddress() {
 	string strarray[6];
 	string yes_or_no;
+	int input;
 	for (int i = 0; i < 6; ++i) {
-		strarray[i] = "None";
+		strarray[i] = " ";
 	}
-	cout << "Type name" << endl;
-	cin >> strarray[0];
-	for (int i = 1; i < 6; ++i) {
-		cout << "type " << templist[i] << " , if you don't want to, type 'n'" << endl;
-		cin >> yes_or_no;
-		if (yes_or_no == "n") {
-			//donothing
+	while (1) {
+		cout << "1. name    : " << strarray[0] << endl
+			<< "2. phone#  : " << strarray[1] << endl
+			<< "3. email   : " << strarray[2] << endl
+			<< "4. address : " << strarray[3] << endl
+			<< "5. alias   : " << strarray[4] << endl
+			<< "6. memo    :" << strarray[5] << endl;
+		cout << "7.save and quit" << endl <<endl << "Type number to edit   ";
+		cin >> input;
+		switch (input)
+		{
+		case 1:
+			cout << "name: ";
+			cin >> strarray[input - 1];
+			break;
+		case 2:
+			cout << "phone number: ";
+			cin >> strarray[input - 1];
+			break;
+		case 3:
+			cout << "email: ";
+			cin >> strarray[input - 1];
+			break;
+		case 4:
+			cout << "address: ";
+			cin >> strarray[input - 1];
+			break;
+		case 5:
+			cout << "alias: ";
+			cin >> strarray[input - 1];
+			break;
+		case 6:
+			cout << "memo: ";
+			cin >> strarray[input - 1];
+			break;
+		case 7:
+			break;
 		}
-		else {
-			strarray[i] = yes_or_no;
+		if (input == 7) {
+			if (strarray[0] != " ") {
+				if (strarray[1] != " ") {
+					break;
+				}
+			}
+			cout<<endl << "     **You must input Name and Phone Number**" << endl<<endl;
 		}
 	}
+
+	for (int i = 0; i < 6; ++i) {
+		if (strarray[i] == " ") {
+			strarray[i] = "None";
+		}
+	}
+
 	addAddress(strarray[0], strarray[1], strarray[2], strarray[3], strarray[4], strarray[5]);
 	sortAddress();
 }
