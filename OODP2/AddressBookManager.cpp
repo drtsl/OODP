@@ -122,7 +122,13 @@ void AddressBookManager::addressManagement(){
 			cout << "Who do you want to edit profile?" << endl;
 			printAddress(1);
 			cin >> name;
-			printoneAddress(name);
+			for (auto t = addressV.begin(); t != addressV.end(); ++t) {
+				if (t->getName() == name) {
+					changeIter = t;
+					isFound = true;
+					t->printAddress();
+				}
+			}
 			for (auto t = addressV.begin(); t != addressV.end(); ++t) {
 				if (t->getName() == name) {
 					changeIter = t;
@@ -147,25 +153,15 @@ void AddressBookManager::addressManagement(){
 			}
 		}
 		else {
-			printoneAddress(name);
+			for (auto t = addressV.begin(); t != addressV.end(); ++t) {
+				if (t->getName() == name) {
+					t->printAddress();
+				}
+			}
 		}
 	}
 }
 
-void AddressBookManager::printoneAddress(string name_) {
-	for (auto i = addressV.begin(); i != addressV.end(); i++) {
-		if (name_ == i->getName()) {
-			cout << "####################" << endl;
-			cout << "Name : " << "\t" << "\t" << i->getName() << endl;
-			cout << "PhoneNumber : " << "\t" << i->getPhoneNumber() << endl;
-			cout << "EMail : " << "\t" << i->getEmail() << endl;
-			cout << "Address : " << "\t" << i->getAddress() << endl;
-			cout << "Alias : " << "\t" << i->getAlias() << endl;
-			cout << "Memo : " << "\t\t" << i->getMemo() << endl;
-			cout << "####################" << endl << endl << endl;
-		}
-	}
-}
 
 void AddressBookManager::editAddress(vector<Address>::iterator it, int category_, string input_) {
 	++category_;

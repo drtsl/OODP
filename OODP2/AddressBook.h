@@ -26,8 +26,7 @@ public:
     void setMemo(string memo_){memo = memo_;}
     string getAlias(){return alias;}
     void setAlias(string alias_){alias = alias_;}
-
-	void makeAddress();
+	void printAddress();
 
 private:
     string name;
