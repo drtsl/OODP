@@ -6,17 +6,19 @@
 
 class CallManager {
 public:
+	CallManager();
+	void addressSet(vector<Address> addressv_);
 	void loadCallHistory();
 	void saveCallHistory();
 	void printCallhistory();
-	void manageHistory();
 	void deleteHistory();
+	void call_to(string phone_);
+	void call_from(string phone);
 private:
-	string currentTime();
-	void call_to();
-	void call_from();
+	CurrentTime getcurrentTime();
+	string time_to_string(CurrentTime time_);
+	CurrentTime string_to_time(string time_);
 	void sortHistory();
-	bool comparetime(Call& lhs, Call &rhs);
 	vector<Call> callV;
 };
 

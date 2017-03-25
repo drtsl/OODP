@@ -1,6 +1,8 @@
 #include "AddressBook.h"
 #include <iostream>
 
+using namespace std;
+
 void Address::printAddress() {
 	cout << "####################" << endl;
 	cout << "Name : " << "\t" << "\t" << getName() << endl;
@@ -9,7 +11,7 @@ void Address::printAddress() {
 	cout << "Address : " << "\t" << getAddress() << endl;
 	cout << "Alias : " << "\t" << getAlias() << endl;
 	cout << "Memo : " << "\t\t" << getMemo() << endl;
-	cout << "####################" << endl << endl << endl;
+	cout << "####################" << endl;
 }
 
-using namespace std;
+

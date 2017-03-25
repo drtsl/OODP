@@ -2,12 +2,16 @@
 #include"AddressBook.h"
 
 
-Call::Call(string phonenum_, int calledbyyou_, int missedcall_, int calltime_, string callstarttime_) {
+Call::Call(string phonenum_, int calledbyyou_, int missedcall_, CurrentTime callstarttime_, CurrentTime callendtime_) {
 	PhoneNumber = phonenum_;
 	calledbyyou = calledbyyou_;
 	missedcall = missedcall_;
-	calltime = calltime_;
+	callendtime = callendtime_;
 	callstarttime = callstarttime_;
-	Address add("garbage!", "1", "0");
+	Address add("not_exist", "1", "0");
 	calleraddress = add;
+}
+
+string Call::nameinaddress() {
+	return calleraddress.getName();
 }
