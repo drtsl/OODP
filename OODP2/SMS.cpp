@@ -9,7 +9,7 @@ SMS::SMS(string from_, bool sent_, string message_, CurrentTime time_)
 	sent = sent_;
 	message = message_;
 	time = time_;
-	Address nowhere("not_exist", "1", "0");
+	Address nowhere("not_exist", "1111111111", "0");
 	address = nowhere;
 }
 

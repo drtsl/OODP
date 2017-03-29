@@ -45,8 +45,9 @@ void SMSManager::DisplaySMSHistory(){
 }
 
 void SMSManager::printoneSMS(int index_){
-	index_--;
+	
 	if (index_ <= SMSV.size()) {
+		index_--;
 		auto e = SMSV.begin();
 		for (int i = 0; i < index_; ++i) {
 			e++;
@@ -61,14 +62,13 @@ void SMSManager::printoneSMS(int index_){
 		cout << "********************" << endl;
 		cout << e->getTime() << endl;
 		cout << "********************" << endl;
-		//print message,if longer than 10 letters,cut and print in next line
-		int count = 1;
+		//print message,if longer than 15 letters,cut and print in next line
 		string text = e->getMessage();
 		while (1) {
-			if (text.length()>10) {
-				string temp = text.substr(0, 11);
+			if (text.length()>15) {
+				string temp = text.substr(0, 10);
 				cout << temp << endl;
-				text.erase(0, 11);
+				text.erase(0, 10);
 			}
 			else {
 				cout << text << endl;
@@ -156,8 +156,9 @@ void SMSManager::Load(){
 }
 
 void SMSManager::deleteSMS(int index_){
-	index_--;
+	
 	if (index_ <= SMSV.size()) {
+		index_--;
 		auto e = SMSV.begin();
 		for (int i = 0; i < index_; ++i) {
 			e++;
@@ -167,8 +168,10 @@ void SMSManager::deleteSMS(int index_){
 }
 
 string SMSManager::SearchByIndex(int index_) {
-	index_--;
+	
 	if (index_ <= SMSV.size()) {
+		
+		index_--;
 		auto e = SMSV.begin();
 		for (int i = 0; i < index_; ++i) {
 			e++;

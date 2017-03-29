@@ -57,8 +57,7 @@ void AddressBookManager::loadAddress() {
 	}
 }
 
-void AddressBookManager::addAddress(string name, string phoneNumber, string email,
-	string address, string memo, string alias) {
+void AddressBookManager::addAddress(string name, string phoneNumber, string email, string address, string memo, string alias) {
 	//cin >> name >> phoneNumber >> email >> address >> memo >> alias;
 	addressV.push_back(Address(name, phoneNumber, email, address, memo, alias));
 }
@@ -70,7 +69,6 @@ void AddressBookManager::printAddress() {
 		}
 		cout << "--------------------" << endl;
 }
-
 
 void AddressBookManager::editAddress(string name_) {
 	int input;
@@ -249,16 +247,30 @@ void AddressBookManager::makeAddress() {
 }
 
 Address AddressBookManager::Searchbyname(string name_) {
-	Address searchresult("not_exist", "1", "0");
+	Address searchresult("not_exist", "1111111111", "0");
 	for (auto e : AddressBookManager::addressV) {
 		if (e.getName() == name_) searchresult = e;
 	}
 	return searchresult;
 }
+
 Address AddressBookManager::Searchbyphone(string phone_) {
-	Address searchresult("not_exist", "1", "0");
+	Address searchresult("not_exist", "1111111111", "0");
+	string token = phone_.substr(3, 4);
+	vector<Address> tempvector;
+	int count = 0;
 	for (auto e : AddressBookManager::addressV) {
-		if (e.getPhoneNumber() == phone_) searchresult = e;
+		if (e.getTag() == token) tempvector.push_back(e);
+	}
+	while (tempvector.size() > 0) {
+		if (tempvector[count].getPhoneNumber() == phone_) {
+			searchresult = tempvector[count];
+			break;
+		}
+		count++;
+		if (count > tempvector.size()) {
+			break;
+		}
 	}
 	return searchresult;
 }

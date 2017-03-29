@@ -9,7 +9,7 @@ Call::Call(string phonenum_, int calledbyyou_, int missedcall_, CurrentTime call
 	missedcall = missedcall_;
 	callendtime = callendtime_;
 	callstarttime = callstarttime_;
-	Address add("not_exist", "1", "0");
+	Address add("not_exist", "1111111111", "0");
 	calleraddress = add;
 }
 
@@ -21,4 +21,27 @@ string Call::getcallendtime() {
 }
 string Call::getcallstarttime() {
 	return callstarttime.get_time_string() + "/" + callstarttime.get_hour_string();
+}
+string Call::calltime() {
+	int year = callendtime.year_ - callstarttime.year_;
+	int month = callendtime.month_ - callstarttime.month_;
+	int day = callendtime.day_ - callstarttime.day_;
+	int hour = callendtime.hour_ - callstarttime.hour_;
+	int minute = callendtime.minute_ - callstarttime.minute_;
+	int second = callendtime.second_ - callstarttime.second_;
+	if (year != 0 || month != 0 || day != 0 ) {
+		return "talked tooooooooo long";
+	}
+	if (second < 0) {
+		minute--;
+		second = second + 60;
+	}
+	if (minute < 0) {
+		hour--;
+		minute = minute + 60;
+	}
+	if (hour < 0) {
+		return "unbelievable result. i can't understand it";
+	}
+	return to_string(hour) + ":" + to_string(minute) + ":" + to_string(second);
 }

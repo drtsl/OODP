@@ -12,7 +12,7 @@ public:
 	string getcallendtime();
 	string getcallstarttime();
 	string nameinaddress();
-
+	string calltime();
 private:
 	string PhoneNumber;
 	Address calleraddress;

@@ -111,6 +111,7 @@ void CallManager::call_to(string phone_) {
 		callV.push_back(Call(phone_, calledby, missedcall, callstart, callend));
 		break;
 	case 1:
+		cout << "He didn't response. Maybe bad timing. Try later!" << endl;
 		callV.push_back(Call(phone_, calledby, missedcall, callstart, callend));
 		break;
 	}
@@ -181,8 +182,9 @@ void CallManager::addressSet(vector<Address> addressv) {
 }
 
 void CallManager::deleteHistory(int index_) {
-	index_--;
+	
 	if (index_ <= callV.size()) {
+		index_--;
 		auto e = callV.begin();
 		for (int i = 0; i < index_; ++i) {
 			e++;
@@ -191,8 +193,9 @@ void CallManager::deleteHistory(int index_) {
 	}
 }
 void CallManager::printdetailHistory(int index_) {
-	index_--;
+	
 	if (index_ <= callV.size()) {
+		index_--;
 		auto e = callV.begin();
 		for (int i = 0; i < index_; ++i) {
 			e++;
@@ -214,10 +217,11 @@ void CallManager::printdetailHistory(int index_) {
 			cout << "     missed call" << endl;
 		}
 		else {
-			cout << "not missed" << endl;
+			cout << "     not missed" << endl;
 		}
 		cout << "call started : " << e->getcallstarttime() << endl;
 		cout << "call ended   : " << e->getcallendtime() << endl;
+		cout << "call time    : " << e->calltime() << endl;
 	}
 
 }
@@ -233,3 +237,5 @@ string CallManager::gotphonebyindex(int index_) {
 	}
 	return "error";
 }
+
+

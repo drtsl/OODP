@@ -6,15 +6,14 @@ using namespace std;
 
 class Address {
 public:
-    Address(){};
-    Address(string name_, string phoneNumber_, string email_, string address_, string memo_, string alias_)
-    : name(name_), phoneNumber(phoneNumber_), email(email_), address(address_), memo(memo_), alias(alias_) {}
-	Address(string name_, string phoneNumber_, string email_)
-    : name(name_), phoneNumber(phoneNumber_), email(email_), address("None"), memo("None"), alias("None"){}
+	Address() {tag = "None";}
+	Address(string name_, string phoneNumber_, string email_, string address_, string memo_, string alias_);
+	Address(string name_, string phoneNumber_, string email_);
+   
 	string getName() { return name; }
     void setName(string name_){name = name_;}
     string getPhoneNumber(){return phoneNumber;}
-    void setPhoneNumber(string phoneNumber_){phoneNumber = phoneNumber_;}
+	void setPhoneNumber(string phoneNumber_);
     string getEmail(){return email;}
     void setEmail(string email_){email = email_;}
     string getAddress(){return address;}
@@ -23,9 +22,11 @@ public:
     void setMemo(string memo_){memo = memo_;}
     string getAlias(){return alias;}
     void setAlias(string alias_){alias = alias_;}
+	string getTag() { return tag; }
 	void printAddress();
 
 private:
+	string tag;
     string name;
     string phoneNumber;
     string email;

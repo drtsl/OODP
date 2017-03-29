@@ -20,9 +20,9 @@ int main(){
 	CallManager callm;
 	SMSManager smsm;
 	string input1,input2,command,index;
-
 	callm.addressSet(adbm.getVector());
 	smsm.addressSet(adbm.getVector());
+
     while(1){
         cout << "----------"<<endl
         << "1. Addressbook" << endl
