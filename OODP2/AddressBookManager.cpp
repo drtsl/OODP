@@ -3,6 +3,9 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include "AddressBook.h"
+#include <string>
+
 using namespace std;
 //template <typename T>;
 string templist[6] = { "name", "phone number", "email", "address", "memo", "alias" };
@@ -162,12 +165,16 @@ void AddressBookManager::editing(vector<Address>::iterator it, int category_, st
 
 void AddressBookManager::deleteAddress(string name_) {
 	vector<Address>::iterator it;
+	bool is_found = false;
 	for (auto t = addressV.begin(); t != addressV.end(); ++t) {
 		if (t->getName() == name_) {
 			it = t;
+			is_found = true;
 		}
 	}
-	addressV.erase(it);
+	if (is_found) {
+		addressV.erase(it);
+	}
 }
 
 bool compareString(Address& lhs, Address& rhs) {

@@ -1,6 +1,7 @@
 #include "Call.h"
 #include"AddressBook.h"
-
+#include"AddressBookManager.h"
+#include"time.h"
 
 Call::Call(string phonenum_, int calledbyyou_, int missedcall_, CurrentTime callstarttime_, CurrentTime callendtime_) {
 	PhoneNumber = phonenum_;
@@ -14,4 +15,10 @@ Call::Call(string phonenum_, int calledbyyou_, int missedcall_, CurrentTime call
 
 string Call::nameinaddress() {
 	return calleraddress.getName();
+}
+string Call::getcallendtime() {
+	return callendtime.get_time_string() +"/"+ callendtime.get_hour_string();
+}
+string Call::getcallstarttime() {
+	return callstarttime.get_time_string() + "/" + callstarttime.get_hour_string();
 }

@@ -1,9 +1,6 @@
 #ifndef __ADDRESS_BOOK__
 #define __ADDRESS_BOOK__
-
-#include <string>
-#include <vector>
-#include "AddressBook.h"
+#include <iostream>
 
 using namespace std;
 
@@ -14,7 +11,7 @@ public:
     : name(name_), phoneNumber(phoneNumber_), email(email_), address(address_), memo(memo_), alias(alias_) {}
 	Address(string name_, string phoneNumber_, string email_)
     : name(name_), phoneNumber(phoneNumber_), email(email_), address("None"), memo("None"), alias("None"){}
-    string getName(){return name;}
+	string getName() { return name; }
     void setName(string name_){name = name_;}
     string getPhoneNumber(){return phoneNumber;}
     void setPhoneNumber(string phoneNumber_){phoneNumber = phoneNumber_;}
@@ -37,36 +34,6 @@ private:
     string alias;
 };
 
-class Date{
-public:
-    Date() : day(0), month(0), year(0), hour(0), min(0){}
-    Date(int year_, int month_, int day_, int hour_, int min_)
-    : year(year_), month(month_), day(day_), hour(hour_), min(min_){}
-    int day;
-    int month;
-    int year;
-    int hour;
-    int min;
-};
-
-class SMS {
-public:
-    void setFrom(string from_){from = from_;}
-    string getFrom(){return from;}
-    void setTo(string to_){to = to_;}
-    string getTo(){return to;}
-    void setMessage(string message_){message = message_;}
-    string getMessage(){return message;}
-    void setDate(Date date_){date = date_;}
-    void setDate(int year, int month, int day, int hour, int min){date = Date(year, month, day, hour, min);}
-    Date getDate(){return date;}
-
-private:
-    string from;
-    string to;
-    string message;
-    Date date;
-};
 
 
 

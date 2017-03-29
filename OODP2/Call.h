@@ -1,15 +1,6 @@
 #pragma once
-
-#include"AddressBook.h"
-#include"AddressBookManager.h"
-struct CurrentTime {
-	int year_;
-	int month_;
-	int day_;
-	int hour_;
-	int minute_;
-	int second_;
-};
+#include "time.h"
+#include "AddressBook.h"
 
 class Call {
 public:
@@ -17,9 +8,9 @@ public:
 	void setcalleraddress(Address address_) { calleraddress = address_; }
 	string getphonenum() { return PhoneNumber; }
 	int getfromto() { return calledbyyou; } //1=to, 0=from
-	int getmissedcall() { return missedcall; } //1=got a call,0=missed call
-	CurrentTime getcallendtime() { return callendtime; }
-	CurrentTime getcallstarttime() { return callstarttime; }
+	int getmissedcall() { return missedcall; } //0=got a call,1=missed call
+	string getcallendtime();
+	string getcallstarttime();
 	string nameinaddress();
 
 private:

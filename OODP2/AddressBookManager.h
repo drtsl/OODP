@@ -1,9 +1,7 @@
 #ifndef __ADDRESS_BOOK_MANGER__
 #define __ADDRESS_BOOK_MANGER__
-
-#include <vector>
-#include "AddressBook.h"
-#include "AddressBookManager.h"
+#include<vector>
+#include"AddressBook.h"
 
 using namespace std;
 

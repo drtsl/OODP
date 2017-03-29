@@ -5,7 +5,6 @@
 #include<fstream>
 #include<iostream>
 #include<time.h>
-#include<ctime>
 #include<algorithm>
 #include<cstdlib>
 
@@ -24,7 +23,7 @@ void CallManager::saveCallHistory() {
 		// save address to file.
 		for (auto it = callV.begin(); it != callV.end(); it++) {
 			callhistory << it->getphonenum() << " " << it->getfromto() << " " << it->getmissedcall() << " "
-				<< time_to_string(it->getcallstarttime()) << " " << time_to_string(it->getcallendtime()) << endl;
+				<< it->getcallstarttime() << " " << it->getcallendtime() << endl;
 		}
 		cout << "Save Succesful!" << endl;
 		callhistory.close();
@@ -40,20 +39,23 @@ void CallManager::loadCallHistory() {
 	else {
 		callV.clear();
 		// load address from file.
-		while (callhistory.eof()) {
+		while (!callhistory.eof()) {
 			string phonenum, callstartS, callendS;
-			int fromto, missed, callT;
-			CurrentTime callstartT, callendT;
+			int fromto, missed;
 			callhistory >> phonenum >> fromto >> missed >> callstartS >> callendS;
-			callstartT = string_to_time(callstartS);
-			callendT = string_to_time(callendS);
+			if (phonenum == "") {
+				break;
+			}
+			CurrentTime callstartT(callstartS);
+			CurrentTime callendT(callendS);
+			
 			callV.push_back(Call(phonenum, fromto, missed, callstartT, callendT));
 		}
 		cout << "Load Succesful!" << endl;
 		callhistory.close();
-		sortHistory();
 	}
 }
+/*
 bool comparetime(Call &lhs, Call &rhs) {
 	if (lhs.getcallstarttime().year_ == lhs.getcallstarttime().year_) {
 		if (lhs.getcallstarttime().month_ == lhs.getcallstarttime().month_) {
@@ -86,22 +88,8 @@ bool comparetime(Call &lhs, Call &rhs) {
 void CallManager::sortHistory() {
 	sort(callV.begin(), callV.end(), comparetime);
 }
+*/
 
-
-CurrentTime CallManager::getcurrentTime() {
-	time_t now;
-	struct tm *tm;
-	time(&now);
-	tm = localtime(&now);
-	CurrentTime time_now;
-	time_now.year_ = (tm->tm_year) + 1900;
-	time_now.month_ = (tm->tm_mon) + 1;
-	time_now.day_ = (tm->tm_mday);
-	time_now.hour_ = (tm->tm_hour);
-	time_now.minute_ = (tm->tm_min);
-	time_now.second_ = tm->tm_sec;
-	return time_now;
-}
 
 void CallManager::call_to(string phone_) {
 	string input, calltime_;
@@ -109,7 +97,7 @@ void CallManager::call_to(string phone_) {
 	int calledby = 1;
 	int missedcall = 0;
 	srand((unsigned int)time(NULL));
-	CurrentTime callstart = getcurrentTime();
+	CurrentTime callstart, callend;
 	probability = (rand() % 10);
 	if (probability > 7) missedcall = 1; //you didn't got my call!
 	switch (missedcall)
@@ -119,14 +107,16 @@ void CallManager::call_to(string phone_) {
 		while (input != "stop") {
 			cin >> input;
 		}
-		CurrentTime callend = getcurrentTime();
+		callend.setnow();
 		callV.push_back(Call(phone_, calledby, missedcall, callstart, callend));
 		break;
 	case 1:
-		callV.push_back(Call(phone_, calledby, missedcall, callstart, callstart));
+		callV.push_back(Call(phone_, calledby, missedcall, callstart, callend));
 		break;
 	}
 }
+
+
 void CallManager::call_from(string phone_) {
 	string input, calltime_;
 	int calledby = 0;
@@ -135,61 +125,28 @@ void CallManager::call_from(string phone_) {
 	cin >> input;
 	if (input == "y") {
 		missedcall = 0;
-		CurrentTime callstart = getcurrentTime();
+		CurrentTime callstart;
 		cout << "Type \"stop\" to stop call" << endl;
 		while (input != "stop") {
 			cin >> input;
 		}
-		CurrentTime callend = getcurrentTime();
+		CurrentTime callend;
 		callV.push_back(Call(phone_, calledby, missedcall, callstart, callend));
 	}
 	else {
-		CurrentTime callstart = getcurrentTime();
+		CurrentTime callstart;
 		callV.push_back(Call(phone_, calledby, missedcall, callstart, callstart));
 	}
 	
 }
-string CallManager::time_to_string(CurrentTime time_) {
-	return to_string(time_.year_) + "." + to_string(time_.month_) + "." + to_string(time_.day_) + "." + to_string(time_.hour_) + "." + to_string(time_.minute_) + "." + to_string(time_.second_);
-}
-CurrentTime CallManager::string_to_time(string time_) {
-	CurrentTime recordtime;
-	size_t pos;
-	string token;
-	//getyear
-	pos = time_.find(".");
-	token = time_.substr(0, pos);
-	recordtime.year_ = stoi(token);
-	time_.erase(0, pos + 1);
-	//getmonth
-	pos = time_.find(".");
-	token = time_.substr(0, pos);
-	recordtime.month_ = stoi(token);
-	time_.erase(0, pos + 1);
-	//getday
-	pos = time_.find(".");
-	token = time_.substr(0, pos);
-	recordtime.day_ = stoi(token);
-	time_.erase(0, pos + 1);
-	//gethour
-	pos = time_.find(".");
-	token = time_.substr(0, pos);
-	recordtime.hour_ = stoi(token);
-	time_.erase(0, pos + 1);
-	//getminute
-	pos = time_.find(".");
-	token = time_.substr(0, pos);
-	recordtime.minute_ = stoi(token);
-	time_.erase(0, pos + 1);
 
-	//getsecond
-	recordtime.second_ = stoi(token);
-	return recordtime;
-	
-}
+
+
 
 void CallManager::printCallhistory() {
+	int index = 1;
 	for (auto e : CallManager::callV) {
+		cout << index << ".  ";
 		if (e.nameinaddress() != "not_exist") {
 			cout << e.nameinaddress() << "   ";
 		}
@@ -197,27 +154,82 @@ void CallManager::printCallhistory() {
 			cout << e.getphonenum() << "   ";
 		}
 		if (e.getmissedcall()) {
-			cout << endl;
-		}
-		else {
 			cout << "(missed call)" << endl;
 		}
-		cout << time_to_string(e.getcallstarttime()) << "   ";
+		else {
+			cout << endl;
+		}
+		cout << e.getcallstarttime()<< "   ";
 		if (e.getfromto()) {
-			cout << "  to  " << endl;
+			cout << "  to  " << endl << endl;
 		}
 		else {
-			cout << "from" << endl;
+			cout << "from" << endl << endl;
 		}
+		++index;
 	}
 }
 
 void CallManager::addressSet(vector<Address> addressv) {
-	for (auto adv : addressv) {
-		for (auto chv : CallManager::callV) {
-			if (chv.getphonenum() == adv.getPhoneNumber()) {
-				chv.setcalleraddress(adv);
+	for (auto adv = addressv.begin(); adv != addressv.end();++adv) {
+		for (auto chv = callV.begin(); chv != callV.end(); ++chv) {
+			if (chv->getphonenum() == adv->getPhoneNumber()) {
+				chv->setcalleraddress(*adv);
 			}
 		}
 	}
+}
+
+void CallManager::deleteHistory(int index_) {
+	index_--;
+	if (index_ <= callV.size()) {
+		auto e = callV.begin();
+		for (int i = 0; i < index_; ++i) {
+			e++;
+		}
+		callV.erase(e);
+	}
+}
+void CallManager::printdetailHistory(int index_) {
+	index_--;
+	if (index_ <= callV.size()) {
+		auto e = callV.begin();
+		for (int i = 0; i < index_; ++i) {
+			e++;
+		}
+		if (e->nameinaddress() == "not_exist") {
+			cout << e->getphonenum() << endl;
+		}
+		else {
+			cout << e->nameinaddress() << endl;
+		}
+		cout << e->getphonenum() << endl;
+		if (e->getfromto()) {
+			cout << "called   to    /";
+		}
+		else {
+			cout << "called from    ||";
+		}
+		if (e->getmissedcall()) {
+			cout << "     missed call" << endl;
+		}
+		else {
+			cout << "not missed" << endl;
+		}
+		cout << "call started : " << e->getcallstarttime() << endl;
+		cout << "call ended   : " << e->getcallendtime() << endl;
+	}
+
+}
+
+string CallManager::gotphonebyindex(int index_) {
+	index_--;
+	if (index_ <= callV.size()) {
+		auto e = callV.begin();
+		for (int i = 0; i < index_; ++i) {
+			e++;
+		}
+		return e->getphonenum();
+	}
+	return "error";
 }
